@@ -24,10 +24,10 @@ public class SelectionSort {
                     minIndex = j;
                 }
             }
+            steps++;
             temp = array[minIndex];
             array[minIndex] = array[i];
             array[i] = temp;
-            steps++;
         }
         System.out.println("Number of iterations: " + steps);
     }
