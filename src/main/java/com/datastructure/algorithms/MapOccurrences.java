@@ -16,7 +16,7 @@ public class MapOccurrences {
         for (int i = 0; i < filteredStr.length()-1; i++) {
             char ch = filteredStr.charAt(i);
             if (occur.containsKey(ch)){
-                occur.put(ch, occur.get(ch) +1);
+                occur.put(ch, occur.get(ch) + 1);
             } else {
                 occur.put(ch, 1);
             }

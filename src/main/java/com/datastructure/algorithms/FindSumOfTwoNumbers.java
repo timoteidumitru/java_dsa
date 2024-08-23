@@ -4,12 +4,11 @@ import java.util.*;
 
 public class FindSumOfTwoNumbers {
     public static void main(String[] args) {
-        findSumOfTwoNumbers();
+        findSumOfTwoNumbers(32);
     }
 
-    public static void findSumOfTwoNumbers(){
+    public static void findSumOfTwoNumbers(int target){
         int[] nums = {2,3,4,5,6,7,9,12,13,14,15,17};
-        int target = 32;
         int left = nums[0];
         int right = nums.length-1;
 
