@@ -75,6 +75,14 @@
   - Customizable ordering: Implements the compare() method to define multiple sorting sequences, allowing custom ordering logic.
   - Separate from the class: Comparator is usually implemented in a separate class, enabling different sorting strategies for the same objects.
 
+### Fail fast and Fail safe
+- Fail Fast:
+  - Immediate failure detection: Fail-Fast iterators throw ConcurrentModificationException as soon as they detect structural modification during iteration.
+  - Not thread-safe: Fail-Fast iterators do not operate on a clone of the collection, making them unsafe for concurrent modifications without external synchronization(Ex: ArrayList, HashMap and Vector)
+- Fail Safe:
+  - No immediate failure: Fail-Safe iterators operate on a cloned copy of the collection, so they don't throw exceptions on structural modifications during iteration.
+  - Thread-safe: Fail-Safe iterators are generally safe for concurrent modifications but may not reflect real-time changes in the underlying collection(Ex: CopyOnWriteArrayList, CopyOnWriteArraySet and ConcurrentHashMap)
+
 
 ### Miscellaneous
 - private and static methods cannot be overridden.
