@@ -51,6 +51,21 @@
 #### Strings mutability
 - using StringBuffer and StringBuilder with their .append() method
 
+### Collections
+- List -> will allow store duplicate values, work on index. Used for frequently access the elements by index.
+  - ArrayList -> internally uses dynamic array to store elements. Slow to manipulate elements but great for storing and accessing.
+  - LinkedList -> internally use double linked list to store elements. Great for manipulation of elements.
+  - CopyOnWriteArrayList
+- Set -> will not allow store duplicate values, work base on hash. Used when design a collection of distinct elements.
+  - HasSet -> by default will store unique values only if primitive data type is used, if used to store custom class need to override hashCode() and equals() methods.
+  - LinkedHasSet
+  - TreeSet
+  - CopyOnWriteArraySet
+- Map -> Store key value pairs of data.
+  - HasMap 
+  - LinkedHasMap
+  - TreeMap
+  - ConcurrentHasMap
 
 ### Miscellaneous
 - private and static methods cannot be overridden.

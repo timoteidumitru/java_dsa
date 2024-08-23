@@ -10,9 +10,9 @@ public class Runner {
         ExecutorService executor = Executors.newFixedThreadPool(2);
 
         // Submitting tasks to the executor
-        executor.submit(new MyTask("Task - 1"));
-        executor.submit(new MyTask("Task - 2"));
-        executor.submit(new MyTask("Task - 3"));
+        executor.submit(new MyTask("Job - 1"));
+        executor.submit(new MyTask("Job - 2"));
+        executor.submit(new MyTask("Job - 3"));
 
 
         executor.shutdown();
