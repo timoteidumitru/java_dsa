@@ -67,6 +67,15 @@
   - TreeMap
   - ConcurrentHasMap
 
+### Comparable and Comparator
+- Comparable:
+  - Defines natural ordering: Implements the compareTo() method to define the default sorting order of objects.
+  -  Single sorting sequence: The class implementing Comparable can only have one sorting logic.
+- Comparator:
+  - Customizable ordering: Implements the compare() method to define multiple sorting sequences, allowing custom ordering logic.
+  - Separate from the class: Comparator is usually implemented in a separate class, enabling different sorting strategies for the same objects.
+
+
 ### Miscellaneous
 - private and static methods cannot be overridden.
 - interfaces in java7 and java8: 
