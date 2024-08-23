@@ -1,4 +1,4 @@
-## Java Interview Questions and Hints
+## Java Core Interview Questions and Hints
 
 ### OOP Concepts:
 - Encapsulation: Bundling data and methods together, restricting direct access to them.
@@ -10,9 +10,20 @@
 - Abstraction: Simplifying complex systems by exposing only essential features, hiding unnecessary details.
   - Use case: widely used in method overriding, interface implementations, working with collections, dependency injection.
 
-### Order of exceptions:
-- Exception over others(Arithmetics)
-- Exception Hierarchy: Java exceptions are organized hierarchically, with more specific exceptions (like FileNotFoundException) being subclasses of more general ones (like IOException and Exception).
+### Exceptions/Errors and their order:
+- Error(unchecked):
+  - OutOfMemoryError 
+  - StackOverflowError
+- Exception(checked):
+  - RuntimeException(unchecked):
+    - NullPointerException
+    - IllegalArgumentException
+    - ArithmeticException
+  - Other Exceptions(Checked) - named as: "compile time exception"
+    - ClassNotFoundException
+    - IOException
+    - FileNotFoundException
+    - SQLException
 
 ### Final, Finally and Finalize:
 - Final is a keyword, used for fields and methods in a class
@@ -22,6 +33,24 @@
 ### Equals and Hashcode
 - Hashcode: used to generate unique or reference number of an object through which we can easily identify uniqueness of an object.
 - Equals: used to compare objects based on its content.
+
+### Strings immutability
+- creation:
+  - object creation: String s1 = new String("javaString"); -> heap then go to SCP
+  - literals: String s2 = "javaString"; -> SCP(string constant pool area)
+- check their hashCode and use same value from SCP:
+  - s1.intern().hashCode==s2.hashCode()
+- check value from SCP(string constant pool area)
+  - s1.intern()
+- why strings are immutable?
+  - allow existence of SCP, saves heap memory
+  - allow safe multithreading
+  - hashCode cached at time creation, no need to be recalculated later
+  - for security purpose like database connexion, credentials
+
+#### Strings mutability
+- using StringBuffer and StringBuilder with their .append() method
+
 
 ### Miscellaneous
 - private and static methods cannot be overridden.
