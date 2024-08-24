@@ -83,6 +83,23 @@
   - No immediate failure: Fail-Safe iterators operate on a cloned copy of the collection, so they don't throw exceptions on structural modifications during iteration.
   - Thread-safe: Fail-Safe iterators are generally safe for concurrent modifications but may not reflect real-time changes in the underlying collection(Ex: CopyOnWriteArrayList, CopyOnWriteArraySet and ConcurrentHashMap)
 
+### Functional Interfaces
+- Function -> Accepts input and returns a result.
+  - Input: Takes an argument.
+  - Output: Returns a result.
+  - Operation: Applies a function.
+- Predicate -> Evaluates input and returns true or false.
+  - Input: Takes an argument.
+  - Output: Returns a boolean.
+  - Operation: Evaluates a condition.
+- Consumer -> Performs action on input without returning result.
+  - Input: Takes an argument.
+  - Output: No return value.
+  - Operation: Performs an action.
+- Supplier -> Provides output without requiring any input.
+  - Input: Takes no arguments.
+  - Output: Returns a result.
+  - Operation: Supplies a value.
 
 ### Miscellaneous
 - private and static methods cannot be overridden.
@@ -93,7 +110,7 @@
     - Can only contain public, static, and final variables.
   - Java 8:
     - Introduced default methods with implementations.
-    - Allowed static methods in interfaces.
+    - Allowed static and default methods in functional interfaces but need to implement them.
     - Enabled the use of lambda expressions for functional interfaces. 
 
 
