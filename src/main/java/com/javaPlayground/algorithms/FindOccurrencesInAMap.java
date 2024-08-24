@@ -3,7 +3,7 @@ package com.javaPlayground.algorithms;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MapOccurrences {
+public class FindOccurrencesInAMap {
     public static void main(String[] args) {
         getOccurrenceFromString();
     }
