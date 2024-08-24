@@ -8,11 +8,22 @@ public class Employee implements Comparable<Employee>{
     int salary;
     int age;
 
-    public Employee(int id, String name, int salary, int age) {
+    String department;
+
+    public Employee(int id, String name, int salary, int age, String department) {
         this.id = id;
         this.name = name;
         this.salary = salary;
         this.age = age;
+        this.department = department;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
     }
 
     public int getId() {
@@ -36,12 +47,12 @@ public class Employee implements Comparable<Employee>{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Employee employee = (Employee) o;
-        return id == employee.id && salary == employee.salary && age == employee.age && Objects.equals(name, employee.name);
+        return id == employee.id && salary == employee.salary && age == employee.age && Objects.equals(name, employee.name) && Objects.equals(department, employee.department);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, salary, age);
+        return Objects.hash(id, name, salary, age, department);
     }
 
     @Override
@@ -51,6 +62,7 @@ public class Employee implements Comparable<Employee>{
                 ", name='" + name + '\'' +
                 ", salary=" + salary +
                 ", age=" + age +
+                ", department='" + department + '\'' +
                 '}';
     }
 
