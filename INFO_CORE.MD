@@ -1,4 +1,4 @@
-## Java Core Interview Questions and Hints
+## Java Core
 
 ### OOP Concepts:
 - **Encapsulation**: Bundling data and methods together, restricting direct access to them.
@@ -109,8 +109,7 @@
   - Method `.shutdown()` is used to close a thread.
 
 ### Miscellaneous
-- private and static methods cannot be overridden.
-- interfaces in java7 and java8: 
+- **interfaces in java7 and java8**: 
   - **Java 7**:
     - Interfaces can only have abstract methods.
     - Cannot have any method implementations.
@@ -119,5 +118,7 @@
     - Introduced default methods with implementations.
     - Allowed static and default methods in functional interfaces but need to implement them.
     - Enabled the use of lambda expressions for functional interfaces. 
-
+- **application performance monitor**
+  - **actuator**: Use endpoints like `/actuator/health`, `/actuator/metrics`, and `/actuator/httptrace` to monitor the health, performance metrics, and HTTP request details of application.
+  - **monitoring tools**: Connect the Actuator metrics to external monitoring systems like **Prometheus** and **Grafana** for enhanced monitoring and visualization.
 

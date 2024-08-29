@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class BinarySearch {
     public ArrayList<Integer> generateArr(){
         ArrayList<Integer> arrList = new ArrayList<>();
-        for(int i=0;i<1000000;i++){
+        for(int i=0;i<=10_000_000;i++){
             arrList.add(i);
         }
         return arrList;
