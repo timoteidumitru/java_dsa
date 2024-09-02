@@ -27,4 +27,12 @@
 - **@Profile** - *Used to specify that a bean or configuration should only be activated under certain environments or profiles.*
 - **@Scope** - *Defines the lifecycle and visibility of a bean, such as singleton, prototype, request, or session scope.*
 
+### Microservices with Spring Boot
+- Service ***Registration*** and ***Discovery*** using ***Eureka*** - allow microservices to register themselves and discover other services.
+- ***Spring Cloud Config*** - allow externalization of configuration properties and retrieve them from a configuration server.
+- ***Load Balancing and Resilience*** - help distributing incoming requests and provides fault tolerance by automatically rerouting requests to a healthy instance.
+- ***Circuit Breaker Pattern*** - managing faults and failures in distributed systems by providing fallback mechanisms.
+- ***API Gateway*** - **Spring Cloud Gateway** act as entry point for incoming requests and can preform routing, filtering and load balancing.
+- ***Monitoring and Metrics*** - **Spring Boot Actuator** provides production ready endpoints for monitoring and managing microservices.
+
 
