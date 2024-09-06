@@ -1,28 +1,43 @@
 package com.javaPlayground.collections;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
+import java.util.function.BinaryOperator;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class Runner {
     public static void main(String[] args) {
-        ArrayList<String> arr = new ArrayList<>();
+        List<Employee> firmX = getAllEmployee();
 
-        final List<String> list = new ArrayList<>(); // runtime polymorphism
-        list.add("hey");
-        list.add("sup");
+        // find the employee with the highest salary from each department
+        findHighestSalary(firmX);
+    }
 
-        System.out.println(list);
+    private static void findHighestSalary(List<Employee> firmX) {
+        Map<String, Employee> collect = firmX.stream().collect(Collectors
+                .toMap(Employee::getDepartment, Function.identity(), BinaryOperator.maxBy(Comparator
+                        .comparingInt(Employee::getSalary))));
 
-        HashSet<Employee> firmX = new HashSet<>();
-        Employee employee1 = new Employee(1, "Mike");
-        Employee employee2 = new Employee(1, "Mike");
-        Employee employee3 = new Employee(2, "Jane");
+        collect.forEach((department, employee) ->
+                System.out.println("Department: " + department + ", " +
+                    "Name: " + employee.getName() + ", Salary: $" + employee.getSalary()));
+    }
 
-        firmX.add(employee1);
-        firmX.add(employee2);
-        firmX.add(employee3);
 
-        System.out.println(firmX);
+    public static List<Employee> getAllEmployee() {
+        return new ArrayList<>() {{
+            add(new Employee(1, "Ana", 55000, 24, "HR"));
+            add(new Employee(2, "Mike", 58000, 24, "HR"));
+            add(new Employee(3, "Jane", 64000, 22, "Finance"));
+            add(new Employee(4, "John", 74000, 28, "R&D"));
+            add(new Employee(5, "Alex", 90000, 26, "IT"));
+            add(new Employee(6, "Iov", 75000, 26, "IT"));
+            add(new Employee(7, "Geo", 64000, 22, "Finance"));
+            add(new Employee(8, "Maria", 70000, 24, "HR"));
+            add(new Employee(9, "Pavel", 60000, 28, "R&D"));
+            add(new Employee(10, "Tim", 64000, 28, "Finance"));
+            add(new Employee(11, "Ben", 75000, 28, "IT"));
+            add(new Employee(12, "Sam", 85000, 28, "IT"));
+        }};
     }
 }

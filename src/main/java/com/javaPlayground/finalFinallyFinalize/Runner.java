@@ -1,5 +1,8 @@
 package com.javaPlayground.finalFinallyFinalize;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Runner {
     // final example -> cannot be reassigned
     private final int value = 10;
@@ -18,10 +21,18 @@ public class Runner {
 
     // finalize -> used by garbage collector to clean up unused objects
     public static void main(String[] args) {
+        // use of garbage collector
         Runner obj = new Runner();
         obj.testMethod();
         obj= null;
         System.gc();
+
+        // runtime polymorphism and final list can add elements
+        ArrayList<String> arr = new ArrayList<>();
+        final List<String> list = new ArrayList<>(); // runtime polymorphism
+        list.add("hey");
+        list.add("sup");
+//        System.out.println(list);
     }
 
     @Override

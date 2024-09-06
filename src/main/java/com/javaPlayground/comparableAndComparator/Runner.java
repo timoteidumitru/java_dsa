@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 public class Runner {
     public static void main(String[] args) {
-         List<Employee> firmX = getAllEmployee();
+        List<Employee> firmX = getAllEmployee();
         firmX.sort(new SalaryComparator());
 
         Comparator<Employee> compareSalary = Comparator.comparing(Employee::getSalary);
