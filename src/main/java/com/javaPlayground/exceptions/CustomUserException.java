@@ -19,10 +19,10 @@ public class CustomUserException {
         System.out.println(findById(employee, 2));
 
     }
-    public static String findById(List<Employee> employees, int id) throws UserNotFoundException{
+    public static Employee findById(List<Employee> employees, int id) throws UserNotFoundException{
         for (Employee employee : employees) {
             if (employee.getId() == id) {
-                return employee.getName() + " -> " +  employee.getDepartment();
+                return employee;
             }
         }
 

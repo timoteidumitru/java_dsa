@@ -1,11 +1,12 @@
 package com.javaPlayground.failFastAndFailSafe;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class HashMapWithThread extends Thread {
     // will throw an ConcurrentModificationException due to Locking Mechanism on whole Object
-    // public static Map<Integer, String> map = new HashMap<>();
+//     public static Map<Integer, String> map = new HashMap<>();
     // will NOT throw any ConcurrentModificationException due to Locking Mechanism of accessing just one element of the Object
     public static Map<Integer, String> map = new ConcurrentHashMap<>();
     public static void main(String[] args) throws InterruptedException {
@@ -23,12 +24,14 @@ public class HashMapWithThread extends Thread {
         System.out.println(map);
     }
 
+    @Override
     public void run(){
         try {
-            Thread.sleep(1000);
+            Thread.sleep(100);
             map.put(4, "Fourth");
         } catch (InterruptedException e) {
-            System.out.println("Child Thread will add element to map.");
+            throw new RuntimeException(e);
         }
+
     }
 }
