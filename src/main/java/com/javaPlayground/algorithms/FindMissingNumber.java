@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class FindMissingNumber {
     public static void main(String[] args) {
-        int[] nums = {3,1,6,2,4};
+        int[] nums = {3,1,6,2,4,7,9};
         findMissingNumber(nums);
     }
 
@@ -14,20 +14,16 @@ public class FindMissingNumber {
         System.out.println(Arrays.toString(nums));
 
         for (int i=0;i<nums.length;i++){
-            for (int j=i+1;j<nums.length;j++){
-                if (nums[j] < nums[i] + 2) {
-                    if (foundElem == nums.length){
-                        foundElem = 0;
-                    } else {
-                        foundElem = nums[j] + 1;
-                    }
-                    break;
-                }
+            if (nums[i+1] != nums[i] + 1) {
+                foundElem = nums[i] +1;
+                break;
             }
         }
 
-        System.out.println(foundElem == 0
+        System.out.println(
+                foundElem == 0
                 ? "No consecutive element missing in the list"
-                : "element " + foundElem + " is missing from the list");
+                : "element " + foundElem + " is missing from the list"
+        );
     }
 }
