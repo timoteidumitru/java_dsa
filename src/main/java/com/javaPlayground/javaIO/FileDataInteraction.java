@@ -13,8 +13,8 @@ public class FileDataInteraction {
 
         while (true) {
             System.out.println("\nChoose an option:");
-            System.out.println("1. Write to a file");
-            System.out.println("2. Read from a file");
+            System.out.println("1. Write to file");
+            System.out.println("2. Read from file");
             System.out.println("3. Exit");
 
             userChoice = scanner.nextLine();

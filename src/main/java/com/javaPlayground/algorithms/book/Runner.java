@@ -1,14 +1,7 @@
 package com.javaPlayground.algorithms.book;
 
-import java.security.Identity;
 import java.util.*;
-import java.util.function.BinaryOperator;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
-
-import static java.util.Arrays.*;
 
 public class Runner {
     public static void main(String[] args) {
@@ -21,12 +14,12 @@ public class Runner {
         //find the book with the highest price
 //        highersPriceBook(books);
         //generate a list with books priced less than $45
-        booksPriceLowerThen(books, 55);
+        booksPriceLowerThen(books, 45);
     }
 
     public static void booksPriceLowerThen(List<Book> books, int target){
         Map<String, String> priceLessThen = books.stream().filter(book ->
-                        Integer.parseInt(book.getPrice().replaceAll("\\$", "")) <= target)
+                        Integer.parseInt(book.getPrice().replaceAll("\\$", "")) < target)
                 .collect(Collectors.toMap(Book::getTitle, Book::getPrice));
 
         System.out.println("Book price lesser the: " + target);
