@@ -2,6 +2,7 @@ package com.javaPlayground.concurrency.executors;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 
 public class Runner {
@@ -10,9 +11,9 @@ public class Runner {
         ExecutorService executor = Executors.newFixedThreadPool(2);
 
         // Submitting tasks to the executor
-        executor.submit(new MyTask("Job - 1"));
-        executor.submit(new MyTask("Job - 2"));
-        executor.submit(new MyTask("Job - 3"));
+        executor.submit(new Task("Job - 1"));
+        executor.submit(new Task("Job - 2"));
+        executor.submit(new Task("Job - 3"));
 
 
         executor.shutdown();

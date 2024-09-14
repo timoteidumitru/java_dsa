@@ -27,7 +27,6 @@ public class Runner {
         // BiFunction<T, U, R>: Takes two arguments of types T and U, and returns a result of type R
         BiFunction<Integer, Integer, Double> bf = (a, b) -> (double) (a * b);
 //        System.out.println(bf.apply(2,3));
-
     }
 
 }

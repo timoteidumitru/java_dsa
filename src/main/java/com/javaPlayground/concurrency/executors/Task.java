@@ -1,9 +1,9 @@
 package com.javaPlayground.concurrency.executors;
 
-class MyTask implements Runnable {
+class Task implements Runnable {
     private final String taskName;
 
-    MyTask(String name) {
+    Task(String name) {
         taskName = name;
     }
 
