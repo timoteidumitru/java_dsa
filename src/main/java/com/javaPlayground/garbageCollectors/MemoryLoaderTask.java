@@ -11,14 +11,14 @@ class MemoryLoaderTask implements Runnable {
     @Override
     public void run() {
         List<byte[]> memoryHog = new ArrayList<>();
-        final int chunkSize = 10 * 1024 * 1024 * 100; // 1GB chunks
+        final int chunkSize = 10 * 1024 * 1024 * 100; // 100MB chunks
 
         try {
             // Simulate memory load by allocating large chunks
             for (int i = 0; i < 5; i++) {
-                System.out.println(Thread.currentThread().getName().split("pool-1-")[1] + " - Allocating 1GB of memory...");
-                memoryHog.add(new byte[chunkSize]);  // Allocate 10 MB
-                Thread.sleep(4000);  // Simulate work
+                System.out.println(Thread.currentThread().getName().split("pool-1-")[1] + " - Allocating 100MB of memory...");
+                memoryHog.add(new byte[chunkSize]);  // Allocate 100 MB
+                Thread.sleep(1000);  // Simulate work
                 printMemoryUsage(Thread.currentThread().getName().split("pool-1-")[1] + " - After Allocation " + (i + 1));
             }
         } catch (OutOfMemoryError | InterruptedException e) {
