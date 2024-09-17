@@ -5,7 +5,7 @@ import java.util.function.IntPredicate;
 import java.util.stream.IntStream;
 
 public class UsingCompletableFuture {
-    public static final Object obj = new Object();
+    private static final Object obj = new Object();
     private static final IntPredicate even = e -> e % 2 == 0;
     private static final IntPredicate odd = e -> e % 2 != 0;
 
@@ -19,13 +19,13 @@ public class UsingCompletableFuture {
         }
     }
 
-    public static void printResult(IntPredicate condition){
+    private static void printResult(IntPredicate condition){
         IntStream.rangeClosed(1, 10)
                 .filter(condition)
                 .forEach(UsingCompletableFuture::execute);
     }
 
-    public static void execute(int i){
+    private static void execute(int i){
         synchronized (obj){
             try {
                 System.out.println("Thread name: \"" + Thread.currentThread()
