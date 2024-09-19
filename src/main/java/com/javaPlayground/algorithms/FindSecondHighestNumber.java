@@ -6,12 +6,13 @@ import java.util.List;
 
 public class FindSecondHighestNumber {
     public static void main(String[] args) {
-        List<Integer> nums = Arrays.asList(1,7,3,8,4,12,11,7,2,9,6);
+        List<Integer> nums = Arrays.asList(4,1,5,7,4,6,3);
+        findSecondHighestNumber(nums, 2);
+    }
 
-        List<Integer> highestNum = nums.stream().distinct().sorted(Comparator.reverseOrder()).toList();
-
-        System.out.println(highestNum.get(1));
-
+    public static void findSecondHighestNumber(List<Integer> nums, int index){
+        Integer result = nums.stream().distinct().sorted(Comparator.reverseOrder()).toList().get(index - 1);
+        System.out.println("Input: " + nums);
+        System.out.println(index + "nd highest number is: " + result);
     }
 }
-
