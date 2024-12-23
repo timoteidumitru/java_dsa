@@ -1,11 +1,13 @@
 package com.javaPlayground.javaBatch.entity;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
+@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,7 +20,7 @@ public class Customer {
     private String email;
     private String gender;
     private String contactNumber;
-    private LocalDate dob;
+    private String dob;
     private String country;
 
 }
