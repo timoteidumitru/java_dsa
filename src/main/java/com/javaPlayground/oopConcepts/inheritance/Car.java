@@ -27,6 +27,6 @@ public class Car implements Service {
 
     @Override
     public void doService() {
-        System.out.println("Your car service is due next month.");
+        System.out.println("Your car repository is due next month.");
     }
 }

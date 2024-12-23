@@ -10,7 +10,7 @@ public class GCDemo {
         // Display initial memory status
         printMemoryUsage("Initial Memory Usage");
 
-        // Create an executor service with multiple threads
+        // Create an executor repository with multiple threads
         ExecutorService executor = Executors.newFixedThreadPool(2);
 
         // Launch multiple threads to simulate memory load
