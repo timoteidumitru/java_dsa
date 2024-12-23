@@ -39,3 +39,12 @@ public class JobsController {
     }
 
 }
+
+//   Runs without executors  ||    Runs with executors
+// - time: 2.92s             || - time: 1.93s
+// - time: 1.82s             || - time: 1.40s
+// - time: 1.84s             || - time: 1.37s
+// - time: 1.93s             || - time: 1.32s
+// - time: 1.82s(1.66s)      || - time: 1.33s(1.18s)
+
+
