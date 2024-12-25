@@ -67,7 +67,7 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "\nEmployee{" +
+        return "\nEmployeeDTO{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", age=" + age +

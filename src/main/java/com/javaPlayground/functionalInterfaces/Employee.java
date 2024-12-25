@@ -50,7 +50,7 @@ public class Employee {
     // toString method for easy printing
     @Override
     public String toString() {
-        return "Employee{" +
+        return "EmployeeDTO{" +
                 "name='" + name + '\'' +
                 ", age=" + age +
                 ", department='" + department + '\'' +

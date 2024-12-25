@@ -9,7 +9,7 @@ public class Runner {
         - Define all attributes as private
         - Define all public exposed methods(getters/setters)
         Use case:
-            - In Entity and DTO classes(eg Employee class).
+            - In Entity and DTO classes(eg EmployeeDTO class).
     */
     public static void main(String[] args) {
         List<Employee> employees = getAllEmployee();

@@ -2,16 +2,20 @@ package com.javaPlayground.javaBatch.partition;
 
 import org.springframework.batch.core.partition.support.Partitioner;
 import org.springframework.batch.item.ExecutionContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class RangePartitioner implements Partitioner {
+public class EmployeePartitioner implements Partitioner {
+
+    private static final Logger logger = LoggerFactory.getLogger(EmployeePartitioner.class);
 
     private final int min;
     private final int max;
 
-    public RangePartitioner(int min, int max) {
+    public EmployeePartitioner(int min, int max) {
         this.min = min;
         this.max = max;
     }
@@ -23,7 +27,7 @@ public class RangePartitioner implements Partitioner {
         }
 
         int range = max - min + 1;
-        int targetSize = (range + gridSize - 1) / gridSize; // Ensure ceiling division
+        int targetSize = (range + gridSize - 1) / gridSize;
         Map<String, ExecutionContext> result = new HashMap<>();
 
         int number = 1;
@@ -38,7 +42,7 @@ public class RangePartitioner implements Partitioner {
 
             result.put("partition " + number, value);
 
-            System.out.printf("Partition %d: min-value=%d, max-value=%d%n", number, start, end);
+            logger.debug("Partition {}: min-value={}, max-value={}", number, start, end);
 
             start = end + 1;
             number++;

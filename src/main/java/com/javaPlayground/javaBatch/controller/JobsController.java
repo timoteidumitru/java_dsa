@@ -25,7 +25,21 @@ public class JobsController {
     private Job job;
 
     @PostMapping("/import-customers")
-    public void importCsvToDB(){
+    public void importCustomersToDB(){
+        JobParameters jobParameters = new JobParametersBuilder()
+                .addLocalDate("startAt: ", LocalDate.now())
+                .toJobParameters();
+
+        try {
+            jobLauncher.run(job, jobParameters);
+        } catch (JobExecutionAlreadyRunningException | JobParametersInvalidException |
+                 JobInstanceAlreadyCompleteException | JobRestartException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @PostMapping("/import-employee")
+    public void importEmployeeToDB(){
         JobParameters jobParameters = new JobParametersBuilder()
                 .addLocalDate("startAt: ", LocalDate.now())
                 .toJobParameters();
@@ -40,6 +54,8 @@ public class JobsController {
 
 }
 
+
+// ############################ For 1000 entries dataset ##################################
 //   Runs without executors  ||    Runs with executors        ||   Runs with Partitioner
 // - time: 2.92s             || - time: 1.93s                 || - time: 886ms (2 grid)
 // - time: 1.82s             || - time: 1.40s                 || - time: 760ms (4 grid)

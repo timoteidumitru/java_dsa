@@ -15,9 +15,9 @@ public class Runner {
 
     private static void findHighestSalary(List<Employee> firmX) {
 //        // approach one
-//        Map<String, Employee> collect = firmX.stream().collect(Collectors
-//                .toMap(Employee::getDepartment, Function.identity(), BinaryOperator.maxBy(Comparator
-//                        .comparingInt(Employee::getSalary))));
+//        Map<String, EmployeeDTO> collect = firmX.stream().collect(Collectors
+//                .toMap(EmployeeDTO::getDepartment, Function.identity(), BinaryOperator.maxBy(Comparator
+//                        .comparingInt(EmployeeDTO::getSalary))));
 //
 //        collect.forEach((department, employee) ->
 //                System.out.println("Department: " + department + ", " +

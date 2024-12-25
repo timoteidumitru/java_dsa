@@ -57,7 +57,7 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "Employee{" +
+        return "EmployeeDTO{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", department='" + department + '\'' +
