@@ -40,11 +40,11 @@ public class JobsController {
 
 }
 
-//   Runs without executors  ||    Runs with executors
-// - time: 2.92s             || - time: 1.93s
-// - time: 1.82s             || - time: 1.40s
-// - time: 1.84s             || - time: 1.37s
-// - time: 1.93s             || - time: 1.32s
-// - time: 1.82s(1.66s)      || - time: 1.33s(1.18s)
+//   Runs without executors  ||    Runs with executors        ||   Runs with Partitioner
+// - time: 2.92s             || - time: 1.93s                 || - time: 886ms (2 grid)
+// - time: 1.82s             || - time: 1.40s                 || - time: 760ms (4 grid)
+// - time: 1.84s             || - time: 1.37s                 || - time: 800ms (10 grid)
+// - time: 1.93s             || - time: 1.32s                 || - time: 768ms (5 grid)
+// - time: 1.82s(1.66s)      || - time: 1.33s(1.18s)          || - time: 817ms (16 grid)
 
 

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
+
 @Component
 public class CustomerWriter implements ItemWriter<Customer> {
 
@@ -15,7 +16,7 @@ public class CustomerWriter implements ItemWriter<Customer> {
     private CustomerRepository customerRepository;
 
     @Override
-    public void write(@NonNull Chunk chunk) throws Exception {
+    public void write(@NonNull Chunk<? extends Customer> chunk) throws Exception {
         customerRepository.saveAll(chunk);
     }
 }

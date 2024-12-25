@@ -8,35 +8,41 @@ import java.util.Map;
 
 public class RangePartitioner implements Partitioner {
 
+    private final int min;
+    private final int max;
+
+    public RangePartitioner(int min, int max) {
+        this.min = min;
+        this.max = max;
+    }
+
     @Override
     public Map<String, ExecutionContext> partition(int gridSize) {
-        int min = 1;
-        int max = 1000;
-        int targetSize = (max-min) / gridSize + 1;
+        if (gridSize <= 0) {
+            throw new IllegalArgumentException("Grid size must be greater than 0.");
+        }
+
+        int range = max - min + 1;
+        int targetSize = (range + gridSize - 1) / gridSize; // Ensure ceiling division
         Map<String, ExecutionContext> result = new HashMap<>();
 
         int number = 1;
         int start = min;
-        int end = start + targetSize - 1;
 
-        while (start <= max){
+        while (start <= max) {
+            int end = Math.min(start + targetSize - 1, max);
+
             ExecutionContext value = new ExecutionContext();
-            result.put("partition "+number, value);
-
-            if (end >= max){
-                end = max;
-            }
-
             value.putInt("min-value", start);
             value.putInt("max-value", end);
 
-            start += targetSize;
-            end += targetSize;
+            result.put("partition " + number, value);
+
+            System.out.printf("Partition %d: min-value=%d, max-value=%d%n", number, start, end);
+
+            start = end + 1;
             number++;
-
         }
-
-        System.out.println("Partition result: " + result.toString());
 
         return result;
     }

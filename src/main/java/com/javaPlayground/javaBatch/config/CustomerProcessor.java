@@ -9,7 +9,7 @@ import org.springframework.lang.NonNull;
 public class CustomerProcessor implements ItemProcessor<Customer, Customer> {
 
     @Override
-    public Customer process(@NonNull Customer item) throws Exception {
-        return item;
+    public Customer process(@NonNull Customer customer) throws Exception {
+        return customer;
     }
 }
