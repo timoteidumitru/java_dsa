@@ -16,8 +16,8 @@ public class EmployeeWriter implements ItemWriter<Employee> {
     private EmployeeRepository employeeRepository;
 
     @Override
-    public void write(@NonNull Chunk<? extends Employee> chunk) throws Exception {
-        employeeRepository.saveAll(chunk);
+    public void write(Chunk<? extends Employee> chunk) throws Exception {
+        employeeRepository.saveAll(chunk.getItems());
     }
 
 }

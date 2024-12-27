@@ -3,8 +3,11 @@ package com.javaPlayground.javaBatch.config;
 import com.javaPlayground.javaBatch.dto.EmployeeDTO;
 import com.javaPlayground.javaBatch.entity.Employee;
 import com.javaPlayground.javaBatch.partition.EmployeePartitioner;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
+import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.partition.PartitionHandler;
 import org.springframework.batch.core.partition.support.TaskExecutorPartitionHandler;
@@ -27,6 +30,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 public class EmployeeBatchConfig {
     @Autowired
     private EmployeeWriter employeeWriter;
+    private static final Logger log = LoggerFactory.getLogger(EmployeePartitioner.class);
 
     private LineMapper<EmployeeDTO> lineMapper() {
         DefaultLineMapper<EmployeeDTO> lineMapper = new DefaultLineMapper<>();
@@ -46,69 +50,75 @@ public class EmployeeBatchConfig {
     }
 
     @Bean
-    public EmployeePartitioner EmployeePartitioner() {
+    public EmployeePartitioner partitioner() {
         return new EmployeePartitioner(1, 100001);
     }
 
     @Bean
-    public PartitionHandler EmployeePartitionHandler(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
+    public PartitionHandler partitionHandler(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
         TaskExecutorPartitionHandler partitionHandler = new TaskExecutorPartitionHandler();
-        partitionHandler.setGridSize(10);
-        partitionHandler.setTaskExecutor(EmployeeTaskExecutor());
-        partitionHandler.setStep(EmployeeSlaveStep(jobRepository, transactionManager));
+        partitionHandler.setGridSize(16);
+        partitionHandler.setTaskExecutor(taskExecutor());
+        partitionHandler.setStep(slaveStep(jobRepository, transactionManager));
 
         return partitionHandler;
     }
 
     @Bean
-    public FlatFileItemReader<EmployeeDTO> EmployeeReader() {
+    @StepScope
+    public FlatFileItemReader<EmployeeDTO> reader() {
         FlatFileItemReader<EmployeeDTO> itemReader = new FlatFileItemReader<>();
         itemReader.setResource(new FileSystemResource("src/main/resources/employee_large_dataset.csv"));
         itemReader.setName("csv-reader");
         itemReader.setLinesToSkip(1);
         itemReader.setLineMapper(lineMapper());
-
         return itemReader;
     }
 
     @Bean
-    public EmployeeProcessor EmployeeProcessor() {
+    public EmployeeProcessor processor() {
         return new EmployeeProcessor();
     }
 
     @Bean
-    public Step EmployeeSlaveStep(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
+    public Step slaveStep(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
         return new StepBuilder("slave-step", jobRepository)
                 .<EmployeeDTO, Employee>chunk(10000, transactionManager)
-                .reader(EmployeeReader())
-                .processor(EmployeeProcessor())
+                .reader(reader())
+                .processor(processor())
                 .writer(employeeWriter)
                 .build();
     }
 
     @Bean
-    public Step EmployeeMasterStep(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
+    public Step masterStep(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
         return new StepBuilder("master-step", jobRepository)
-                .partitioner(EmployeeSlaveStep(jobRepository, transactionManager).getName(), EmployeePartitioner())
-                .partitionHandler(EmployeePartitionHandler(jobRepository, transactionManager))
+                .partitioner(slaveStep(jobRepository, transactionManager).getName(), partitioner())
+                .partitionHandler(partitionHandler(jobRepository, transactionManager))
                 .build();
     }
 
     @Bean
-    public Job runJob(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
+    public Job job(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
         return new JobBuilder("import-employee", jobRepository)
-                .flow(EmployeeMasterStep(jobRepository, transactionManager))
+                .flow(masterStep(jobRepository, transactionManager))
                 .end()
                 .build();
     }
 
     @Bean
-    public TaskExecutor EmployeeTaskExecutor() {
+    public TaskExecutor taskExecutor() {
         ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
-        taskExecutor.setMaxPoolSize(10);
-        taskExecutor.setCorePoolSize(10);
-        taskExecutor.setQueueCapacity(20);
-        taskExecutor.initialize();
+        try {
+            taskExecutor.setCorePoolSize(14);
+            taskExecutor.setMaxPoolSize(16);
+            taskExecutor.setQueueCapacity(32);
+            taskExecutor.setThreadNamePrefix("Batch-Task-");
+            taskExecutor.initialize();
+        } catch (Exception e) {
+            log.error("Failed to initialize TaskExecutor", e);
+            throw e;
+        }
         return taskExecutor;
     }
 }

@@ -10,7 +10,7 @@ import org.springframework.lang.NonNull;
 public class EmployeeProcessor implements ItemProcessor<EmployeeDTO, Employee> {
 
     @Override
-    public Employee process(@NonNull EmployeeDTO employeeDTO) throws Exception {
+    public Employee process(EmployeeDTO employeeDTO) throws Exception {
         Employee employee = new Employee();
         double salary = employeeDTO.getSalary();
 
@@ -21,11 +21,11 @@ public class EmployeeProcessor implements ItemProcessor<EmployeeDTO, Employee> {
         employee.setDepartment(employeeDTO.getDepartment());
 
         if (salary > 100000) {
-            salary *= 0.75; // Reduce by 25%
+            salary *= 1.10; // Increase by 10%
         } else if (salary > 70000) {
-            salary *= 0.85; // Reduce by 15%
+            salary *= 1.15; // Increase by 15%
         } else {
-            salary *= 0.90; // Reduce by 10%
+            salary *= 1.25; // Increase by 25%
         }
 
         // Round salary to 2 decimal places

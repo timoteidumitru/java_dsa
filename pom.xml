@@ -62,6 +62,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <jvmArguments>-Xms8G -Xmx16G -XX:+UseG1GC -XX:ParallelGCThreads=14</jvmArguments>
+                </configuration>
             </plugin>
         </plugins>
     </build>
