@@ -14,9 +14,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import jakarta.servlet.http.HttpServletResponse;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.zip.GZIPOutputStream;
+
 
 @RestController
 @RequestMapping("/jobs")
@@ -44,18 +49,57 @@ public class JobsController {
 //    }
 
     @PostMapping("/import-employee")
-    public List<Employee> importEmployeeToDB(){
+    public void importEmployeeToDB(HttpServletResponse response) {
         JobParameters jobParameters = new JobParametersBuilder()
                 .addLocalDate("startAt: ", LocalDate.now())
                 .toJobParameters();
 
         try {
+            // Run the Spring Batch job
             jobLauncher.run(job, jobParameters);
+
+            // Set response headers for GZIP compression
+            response.setContentType("application/json");
+            response.setHeader("Content-Encoding", "gzip");
+
+            // Fetch manipulated employee data and compress it
+            try (OutputStream os = response.getOutputStream();
+                 GZIPOutputStream gzipOutputStream = new GZIPOutputStream(os)) {
+                List<Employee> employees = employeeRepository.findAll();
+
+                // Convert to JSON and write to GZIP output stream
+                String json = convertToJson(employees);
+                gzipOutputStream.write(json.getBytes());
+            }
         } catch (JobExecutionAlreadyRunningException | JobParametersInvalidException |
-                 JobInstanceAlreadyCompleteException | JobRestartException e) {
-            throw new RuntimeException(e);
+                 JobInstanceAlreadyCompleteException | JobRestartException | IOException e) {
+            throw new RuntimeException("Error while processing and compressing employee data", e);
         }
-        return employeeRepository.findAll();
+    }
+
+    /**
+     * Converts a list of Employee objects to a JSON string.
+     * Replace this with Jackson or Gson for a production-ready implementation.
+     */
+    private String convertToJson(List<Employee> employees) {
+        StringBuilder json = new StringBuilder();
+        json.append("[");
+        for (int i = 0; i < employees.size(); i++) {
+            Employee emp = employees.get(i);
+            json.append("{")
+                    .append("\"id\":").append(emp.getId()).append(",")
+                    .append("\"name\":\"").append(emp.getName()).append("\",")
+                    .append("\"age\":").append(emp.getAge()).append(",")
+                    .append("\"salaryBefore\":").append(emp.getSalaryBefore()).append(",")
+                    .append("\"salaryAfter\":").append(emp.getSalaryAfter()).append(",")
+                    .append("\"department\":\"").append(emp.getDepartment()).append("\"")
+                    .append("}");
+            if (i < employees.size() - 1) {
+                json.append(",");
+            }
+        }
+        json.append("]");
+        return json.toString();
     }
 
 }
@@ -73,4 +117,5 @@ public class JobsController {
 //         Runs without partitioning        ||     Runs with partitioning
 //              - time: 14.78s              ||      - time: 9.23s @9.77MB(return data to client)
 //              - time: 17.77s              ||      - time: 7.76s (just execution part)
-//                                          ||      - time: 52.44s (with @StepScope, avoiding thread starvation)
+//                                          ||      - time: 52.44s(with @StepScope, avoiding thread starvation)
+//                                          ||      - time: 54.32s(added gzip and compress the return from 16.87MB to 2.61MB)
