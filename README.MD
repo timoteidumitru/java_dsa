@@ -77,6 +77,41 @@ Strings are fundamental in any Java application. This directory provides example
 - **String Creation**: Different ways to create strings and the implications of each.
 - **String Immutability**: Demonstrates why strings in Java are immutable and how to work with them effectively.
 
+### 12. Java Batch Processing
+
+#### Key Features:
+- **Partitioning**:
+    - Dataset divided using `EmployeePartitioner` into manageable chunks (`min-value`, `max-value`) for concurrent execution.
+    - Grid size configurable to optimize performance.
+
+- **Multithreading**:
+    - Utilized a `TaskExecutor` with thread pooling (`CorePoolSize: 14`, `MaxPoolSize: 16`) for parallel processing.
+    - Avoided thread starvation by proper step scoping.
+
+- **Efficient CSV Reading**:
+    - Used `FlatFileItemReader` to parse the large CSV file, mapping entries to `EmployeeDTO` objects via `LineMapper`.
+
+- **Data Transformation**:
+    - Salary adjustments implemented in `EmployeeProcessor` with precise rounding to two decimal places.
+    - Adjustments: +10%, +15%, or +25% based on salary range.
+
+- **Database Writing**:
+    - Batched inserts performed by `EmployeeWriter` for efficient persistence into MySQL.
+
+- **Compressed Data Response**:
+    - GZIP compression applied to the JSON response in the controller, reducing size from ~16.87MB to ~2.61MB.
+
+#### Performance Metrics:
+- **For 1000 Entries**:
+    - Without Executors: ~1.82s
+    - With Executors: ~1.33s
+    - With Partitioning (Grid 16): ~817ms
+
+- **For 100k Entries**:
+    - Without Partitioning: ~14.78s
+    - With Partitioning: ~7.76s (execution) or ~54.32s (with GZIP compression)
+    - Response Size Reduction: 16.87MB → 2.61MB (using GZIP)
+
 ## Getting Started
 
 To explore and run the examples in this project, you can clone the repository and open it in your favorite IDE. The project is structured to allow easy navigation between different topics, making it a valuable resource for both learning and reference.
