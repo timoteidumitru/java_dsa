@@ -8,17 +8,19 @@ import java.util.stream.Collectors;
 
 public class GroupWordsByLength {
     public static void main(String[] args) {
-        List<String> list = Arrays.asList("Have", "fun", "with", "java", "collections", "si", "iar", "java");
+        List<String> list = Arrays.asList("Have", "fun", "with", "java", "collections", "using", "streams", "javaFun");
         groupWordsByLength(list);
     }
 
     public static void groupWordsByLength(List<String> list) {
 
-        Map<Integer, List<String>> results = list
+        Map<Integer, List<String>> result = list
                 .stream()
                 .collect(Collectors.groupingBy(String::length,
                         Collectors.mapping(Function.identity(), Collectors.toList())));
 
-        System.out.println(results);
+        result.forEach((c,w) -> {
+            System.out.println("Strings of length "+c+": " + w.size() + (w.size() < 2 ? " string": " strings") );
+        });
     }
 }
