@@ -6,32 +6,32 @@ import java.util.List;
 public class PermuteNums {
     public static void main(String[] args) {
         List<Integer> input = Arrays.asList(1,2,3);
-        int n = input.size();
+        int right = input.size();
 
-        permuteNums(input, 0, n-1);
+        permuteNums(input, 0, right);
     }
 
-    private static void permuteNums(List<Integer> input, int l, int r) {
-        if (l == r) {
+    private static void permuteNums(List<Integer> input, int left, int right) {
+        if (left == right) {
             for (int i : input){
                 System.out.print(i + " ");
             }
             System.out.println();
         } else {
-            for (int i = l; i<=r; i++){
-                swapNums(input, l, i);
+            for (int i=left; i<right; i++){
+                swapNums(input, left, i);
 
-                permuteNums(input, l+1, r);
+                permuteNums(input, left+1, right);
 
-                swapNums(input, l, i);
+                swapNums(input, left, i);
             }
         }
     }
 
-    private static void swapNums(List<Integer> arr, int i, int j){
-        int temp = arr.get(i);
-        arr.set(i, arr.get(j));
-        arr.set(j, temp);
+    private static void swapNums(List<Integer> arr, int a, int b){
+        int temp = arr.get(a);
+        arr.set(a, arr.get(b));
+        arr.set(b, temp);
     }
 
 }
